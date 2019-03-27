@@ -12,28 +12,28 @@ Set “Enable Module” to “Yes” and refresh Magento cache.
 
 ### 1. Configuration options
 
-##### Step Option
+#### Step Option
 By default, the slider slides fluently. In order to make the handles jump between intervals, you can use this option. The step option is relative to the values in the range
 
-##### wNumb Format for labels
+#### wNumb Format for labels
 You can use wNumb options to format prices output. You can use additional options described here [https://refreshless.com/wnumb/options/](https://refreshless.com/wnumb/options/)
 
-##### Enable Multiple Select
+#### Enable Multiple Select
 This option allows you select multiple attribute values with checkboxes
 
-##### Hide Active Filters
+#### Hide Active Filters
 Hides active filters on the filter panel
 
-##### Enable Ajax for Layered Navigation
+#### Enable Ajax for Layered Navigation
 If “Yes” then AJAX request will be used to update results instead of whole page refresh.
 
-##### Enable Ajax for Toolbar
+#### Enable Ajax for Toolbar
 If “Yes” then AJAX call will be used on the toolbar instead of whole page refresh
 
-##### Callback JS Code
+#### Callback JS Code
 You can use custom JavaScript code callback after AJAX call to do custom jobs after update
 
-##### Enable RWD theme callback
+#### Enable RWD theme callback
 Enable this option if your theme is RWD or based on RWD
 
 ### 2. Using
