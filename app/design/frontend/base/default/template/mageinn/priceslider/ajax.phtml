@@ -7,7 +7,7 @@ if (typeof $j == 'undefined') {
 }
 $j(document).ready(function($) {
 <?php if ($helper->isAjaxLayered()): ?>
-    $(".col-left-first").on("click", "a", function (e) {
+    $(".col-left-first, .col-left.sidebar").on("click", "a", function (e) {
         msAjax($(this).attr("href"), true);
         e.preventDefault();
     });
@@ -45,9 +45,9 @@ function msAjax(url, pushState) {
                 dataType: "json",
                 success: function (data) {
                     if (data.viewpanel) {
-                        if ($j('.col-left-first .block-layered-nav').length) {
-                            $j('.col-left-first.sidebar').empty();
-                            $j('.col-left-first.sidebar').append(data.viewpanel);
+                        if ($j('.col-left-first .block-layered-nav, .col-left.sidebar .block-layered-nav').length) {
+                          $j('.col-left-first.sidebar, .col-left.sidebar').empty();
+                          $j('.col-left-first.sidebar, .col-left.sidebar').append(data.viewpanel);
                         }
                     }
 
