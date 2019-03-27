@@ -1,0 +1,143 @@
+<?php $helper = Mage::helper('mageinn_priceslider'); ?>
+<script type="text/javascript">
+//<![CDATA[
+var isActive  = false;
+if (typeof $j == 'undefined') { 
+    $j = jQuery;
+}
+$j(document).ready(function($) {
+<?php if ($helper->isAjaxLayered()): ?>
+    $(".col-left-first").on("click", "a", function (e) {
+        msAjax($(this).attr("href"), true);
+        e.preventDefault();
+    });
+<?php endif; ?>
+
+<?php if ($helper->isMultiselect()): ?>
+initAjaxCheckbox();
+<?php endif; ?>
+
+<?php if ($helper->isAjaxLayered() || $helper->isAjaxToolbar()): ?>
+    window.onpopstate = function(e) {
+        msAjax(e.state ? e.state.url : null, false);
+    };
+<?php endif; ?>
+    
+<?php if ($helper->isAjaxToolbar()): ?>
+    initAjaxToolbar();
+<?php endif; ?>
+});
+var urlPattern = '<?php echo $this->getCurrentUrl(); ?>';
+function msAjax(url, pushState) {
+    url = url || "<?php echo $this->helper('core/url')->getCurrentUrl(); ?>";
+    if (!isActive) {
+        isActive = true;
+        $j('#msAjaxLoading').fadeIn(300);
+
+        var origUrl = url;
+        url += (url.split('?')[1] ? '&':'?') + 'isAjax=1';
+
+        try {
+            $j('body').addClass('ms-busy');
+            $j.ajax({
+                context:{pushState:pushState},
+                url: url,
+                dataType: "json",
+                success: function (data) {
+                    if (data.viewpanel) {
+                        if ($j('.col-left-first .block-layered-nav').length) {
+                            $j('.col-left-first.sidebar').empty();
+                            $j('.col-left-first.sidebar').append(data.viewpanel);
+                        }
+                    }
+
+                    if (data.productlist) {
+                        if ($j('.category-products').length) {
+                            $j('.category-products').empty();
+                            $j('.category-products').replaceWith(data.productlist);
+                        } else {
+                            $j('.col-main').find('.note-msg').replaceWith(data.productlist);
+                        }
+                    }
+                    urlPattern = data.urlpattern;
+                    if (this.pushState && window.history && window.history.pushState) {
+                        window.history.pushState({ url: removeParam('isAjax', origUrl) }, data.title, removeParam('isAjax', origUrl));
+                    }
+                    <?php if ($helper->isAjaxToolbar()): ?>
+                    initAjaxToolbar();
+                    <?php endif; ?>
+                        
+                    <?php if ($helper->isMultiselect()): ?>
+                    initAjaxCheckbox();
+                    <?php endif; ?>
+
+                    $j('#msAjaxLoading').fadeOut(300);
+                    $j('body').removeClass('ms-busy');
+
+                    document.fire('catalog:update'); 
+                    <?php echo $this->getCallbackJs(); ?>
+
+                    isActive = false;
+                }
+            });
+        } catch (e) {
+            isActive = false;
+        }
+    }
+    return false;
+}
+function prepareMsUrl(from, to) {
+    return urlPattern.replace('_price_',from + '-' + to);
+}
+function removeParam(key, sourceURL) {
+    var rtn = sourceURL.split("?")[0],
+        param,
+        params_arr = [],
+        queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
+    if (queryString !== "") {
+        params_arr = queryString.split("&");
+        for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+            param = params_arr[i].split("=")[0];
+            if (param === key) {
+                params_arr.splice(i, 1);
+            }
+        }
+        rtn = rtn + "?" + params_arr.join("&");
+    }
+    return rtn;
+}
+function initAjaxToolbar() {
+    $j('.toolbar select').removeAttr('onchange');
+    $j('.category-products').on('click', '.toolbar a', function(e){
+        var url = $j(this).attr('href');
+        msAjax(url, true);
+        e.preventDefault();
+    });
+    $j('.category-products').on('change', '.toolbar select', function(e){
+        var url = $j(this).val();
+        msAjax(url, true);
+        e.preventDefault();
+    });
+}
+function initAjaxCheckbox()
+{
+    $j('.col-left-first .checkbox').checkbox({
+        onChecked: function() {
+            <?php if ($helper->isAjaxLayered()): ?>
+            msAjax($j(this).data('on'), true);
+            <?php else: ?>
+            window.location.href = $j(this).data('on');
+            <?php endif; ?>
+        },
+        onUnchecked: function() {
+            <?php if ($helper->isAjaxLayered()): ?>
+            msAjax($j(this).data('off'), true);
+            <?php else: ?>
+            window.location.href = $j(this).data('off');
+            <?php endif; ?>
+        }
+    });
+}
+//]]>
+</script>
+<div id="msAjaxLoading" style="display:none"></div>

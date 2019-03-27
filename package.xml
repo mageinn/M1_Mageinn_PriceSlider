@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<package>
+    <name>Mageinn_PriceSlider</name>
+    <version>1.3.1</version>
+    <stability>stable</stability>
+    <license>Open Software License (OSL 3.0)</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>This module improves the usability of your store by enriching product attributes and its options with tooltips</summary>
+    <description>This Magento extension allows you to improve the usability of your Magento store by enriching product attributes and its options with descriptive tooltips/hints that work beautifully in every browser on any device.</description>
+    <notes>==== 1.3.1 ====&#xD;
+&#xD;
+=== Bug fixes ===&#xD;
+&#xD;
+Repackaging as a free version&#xD;
+&#xD;
+==== 1.3.0 ====&#xD;
+&#xD;
+=== Bug fixes ===&#xD;
+&#xD;
+Fixed bug with price format&#xD;
+&#xD;
+Fixed bug with incorrect ranges&#xD;
+&#xD;
+Fixed bug with AJAX double calls on some themes&#xD;
+&#xD;
+&#xD;
+&#xD;
+==== 1.2.0 ====&#xD;
+&#xD;
+=== New functionality ===&#xD;
+&#xD;
+Let shoppers select multiple attributes &amp; multiple attribute values at once.&#xD;
+&#xD;
+&#xD;
+==== 1.1.2 ====&#xD;
+&#xD;
+=== Bug fixes ===&#xD;
+&#xD;
+Increased maximum PHP version to support all 5.x.x&#xD;
+&#xD;
+&#xD;
+==== 1.1.1 ====&#xD;
+&#xD;
+=== Bug fixes ===&#xD;
+&#xD;
+Fixed browser "back, forward" buttons behavior &#xD;
+&#xD;
+Fixed RWD callback&#xD;
+&#xD;
+&#xD;
+=== Improvements ===&#xD;
+&#xD;
+Added callback JS for RWD theme&#xD;
+&#xD;
+&#xD;
+&#xD;
+==== 1.1.0 ====&#xD;
+&#xD;
+=== Bug fixes ===&#xD;
+&#xD;
+Incorrect initial slider position when prices are not whole numbers&#xD;
+&#xD;
+Fixed filter block duplication bug&#xD;
+&#xD;
+Fixed swatches&#xD;
+&#xD;
+&#xD;
+=== Improvements ===&#xD;
+&#xD;
+Added callback template&#xD;
+&#xD;
+&#xD;
+&#xD;
+==== 1.0.1 ====&#xD;
+&#xD;
+Initial Release&#xD;
+&#xD;
+</notes>
+    <authors><author><name>Mageinn</name><user>Mageinn</user><email>sales@mageinn.com</email></author></authors>
+    <date>2017-02-13</date>
+    <time>17:53:04</time>
+    <contents><target name="magecommunity"><dir name="Mageinn"><dir name="PriceSlider"><dir name="Block"><file name="Ajax.php" hash="c32c572fe8a257ca2ca738ef0037fe5f"/><file name="Price.php" hash="572e374af421eae9c6ae58a238ecb8cb"/></dir><dir name="Helper"><file name="Data.php" hash="11ff0d7104eccfdd7e4f38311e2247df"/></dir><dir name="Model"><dir name="Catalog"><dir name="Layer"><dir name="Filter"><file name="Attribute.php" hash="8e3154d38339ba1b148c42a0f6742207"/><file name="Category.php" hash="c2eb5e0c2bbe551d1c0e1f03285ec676"/><file name="Item.php" hash="bd94912a72ffa636d47bf6a33b242eab"/><file name="Price.php" hash="e9626226391d2c1c53155e0876665e40"/></dir></dir><file name="Layer.php" hash="ea3a51589e4ec8c562f5b00c853777f0"/><dir name="Resource"><dir name="Layer"><dir name="Filter"><file name="Attribute.php" hash="16f0ced35da63bd620e63df2e70ec906"/><file name="Price.php" hash="dfd216e31eb93796619d6a5ecfc8c30c"/></dir></dir><dir name="Product"><file name="Collection.php" hash="955981995e91d536a7b3a25a1aa06105"/></dir></dir></dir><dir name="CatalogSearch"><dir name="Layer"><dir name="Filter"><file name="Attribute.php" hash="633ec0bf6dae7cc6289e57c6cbe8035a"/></dir></dir><file name="Layer.php" hash="8b1a8e5f9802021b64ab644e2a11609a"/></dir></dir><dir name="controllers"><dir name="Catalog"><file name="CategoryController.php" hash="7f9d731662c8283cd72dfe6c19563d8c"/></dir><dir name="CatalogSearch"><file name="ResultController.php" hash="61008eb918c6ed6498d9bfa92cfbde5f"/></dir></dir><dir name="data"><dir name="mageinn_priceslider_setup"><file name="data-install-1.0.0.php" hash="58398cda923fe0df6a7b149df3017525"/></dir></dir><dir name="etc"><file name="config.xml" hash="28e738d67ba07fb38be9d3ee47f2486b"/><file name="system.xml" hash="de52068385c72b37ded72fadda5b7548"/></dir><file name="readme.txt" hash="276a19a6b394232895b2b169e86f902a"/></dir><dir name="Core"><dir name="Helper"><file name="Data.php" hash="2e1a1a40fe5c3745410dd8da56f11cc1"/></dir><dir name="Model"><file name="Feed.php" hash="67f6a434ef11878160cd982ae2572854"/><file name="Observer.php" hash="6b3dfe35514c435dcc5b3e20a579058e"/><dir name="Resource"><file name="Setup.php" hash="59a9cc46ffadc1b39bed1ea2ac37c679"/></dir></dir><dir name="controllers"><file name="DebugController.php" hash="b2ffd920aabb35544de44039970f6020"/></dir><dir name="etc"><file name="config.xml" hash="ba1057d5c4bc6a26b4e46bd43e3cc680"/><file name="system.xml" hash="fa0d769fe9dc54e5da44d1532a9aad0f"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Mageinn_Core.xml" hash="00508618a1af942d763cf930ca1cf3e6"/><file name="Mageinn_PriceSlider.xml" hash="8b3c4408da05bc71728392d244a8f6e8"/></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><dir name="mageinn"><file name="core.xml" hash="2f90c741043895509df07e28bba4375f"/></dir></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><dir name="mageinn"><file name="core.xml" hash="8e34f616364ec44a76a696968da12201"/><file name="priceslider.xml" hash="68d724b873925f6e3cce7ab7d87d515a"/></dir></dir><dir name="template"><dir name="mageinn"><dir name="priceslider"><file name="ajax.phtml" hash="4837a0c645fb75896fa0fc676c21d987"/><file name="callback.phtml" hash="fdd0b6186db0cc69b3dbff0e3e04963e"/><file name="price.phtml" hash="5b01a4d08a5a7233c03257dd7a43d3c7"/></dir><dir name="catalog"><dir name="layer"><file name="view.phtml" hash="f20ac9beab7ddfbf36355fc734f8045b"/><file name="filter.phtml" hash="f8a759cadcc39d5ba629c2e55ed25b59"/></dir></dir></dir></dir></dir></dir></dir></target><target name="mageskin"><dir name="frontend"><dir name="base"><dir name="default"><dir name="css"><dir name="mageinn"><file name="priceslider.css" hash="d30cdc5af574fb056ffa302febf54699"/></dir></dir></dir></dir></dir></target><target name="mageweb"><dir name="js"><dir name="mageinn"><file name="wNumb.js" hash="3f05e6c0096784aa8f8d2f07c9bc4218"/><dir name="nouislider"><file name="nouislider.min.css" hash="d2509b2c466924831bace0fb8dfce960"/><file name="nouislider.min.js" hash="dd19d897f5ee7cfca3543be98595fef1"/></dir><dir name="jquery"><file name="jquery.min.js" hash="b2f71c943f2f14613bc100fc3ec59db2"/><file name="jquery.noconflict.js" hash="d07784b624e9b9e8544f3106cd7cd1e1"/></dir><file name="checkbox.min.js" hash="f59e6fbab0f7282e1ee14c943982cda2"/><file name="checkbox.min.css" hash="43e321020eef6e5696a980574ebb03ae"/></dir></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.3.0</min><max>7.0.6</max></php></required></dependencies>
+</package>

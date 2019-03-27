@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Mageinn_PriceSlider extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category    Mageinn
+ * @package     Mageinn_PriceSlider
+ * @copyright   Copyright (c) 2016 Mageinn. (http://mageinn.com/)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Mageinn
+ * @package    Mageinn_PriceSlider
+ * @author     Mageinn
+ */
+-->
+<config>
+    <tabs>
+        <mageinn translate="label" module="mageinn_paypal">
+            <label>Mageinn Configuration</label>
+            <sort_order>100</sort_order>
+        </mageinn>
+    </tabs>
+    <sections>
+        <mageinn_priceslider translate="label" module="mageinn_priceslider">
+            <label>Ajax with Price Slider</label>
+            <tab>mageinn</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>120</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable Module</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <step translate="label">
+                            <label>Step Option</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>By default, the slider slides fluently. 
+                                In order to make the handles jump between intervals, you can use this option. 
+                                The step option is relative to the values in range.</comment>
+                        </step>
+                        <wnumb translate="label">
+                            <label>wNumb Format for labels</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>More options https://refreshless.com/wnumb/options/</comment>
+                        </wnumb>
+                        <multiselect translate="label">
+                            <label>Enable Multiple Select</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </multiselect>
+                        <hide_active translate="label">
+                            <label>Hide Active Filters</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>18</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </hide_active>
+                        <layered translate="label">
+                            <label>Enable Ajax for Layered Navigation</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </layered>
+                        <toolbar translate="label">
+                            <label>Enable Ajax for Toolbar</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                        </toolbar>
+                        <callback translate="label">
+                            <label>Callback JS Code</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>150</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Will be called after ajax request is completed.</comment>
+                        </callback>
+                        <rwdcallback translate="label">
+                            <label>Enable RWD theme callback</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>160</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Enable this option if your theme is RWD or based on RWD.</comment>
+                        </rwdcallback>
+                    </fields>
+                </general>
+            </groups>
+        </mageinn_priceslider>
+    </sections>
+</config>
