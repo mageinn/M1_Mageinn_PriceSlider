@@ -84,7 +84,7 @@ class Mageinn_PriceSlider_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isAjaxToolbar() 
     {
-        return Mage::getStoreConfigFlag(self::XML_PATH_MAGEINN_SLIDER_ENABLED);
+        return Mage::getStoreConfigFlag(self::XML_PATH_MAGEINN_AJAX_TOOLBAR);
     }
     
     /**

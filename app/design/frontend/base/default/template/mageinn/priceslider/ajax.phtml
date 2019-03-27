@@ -121,7 +121,7 @@ function initAjaxToolbar() {
 }
 function initAjaxCheckbox()
 {
-    $j('.col-left-first .checkbox').checkbox({
+    $j('.col-left-first .checkbox, .col-left .checkbox').checkbox({
         onChecked: function() {
             <?php if ($helper->isAjaxLayered()): ?>
             msAjax($j(this).data('on'), true);

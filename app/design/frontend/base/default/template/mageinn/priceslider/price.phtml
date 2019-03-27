@@ -1,38 +1,43 @@
+<?php $helper = Mage::helper('mageinn_priceslider'); ?>
 <?php if($this->getIsEnabled()): ?>
-<!-- mageinnSlider -->
-<?php if($this->getFromPrice() != $this->getToPrice()): ?>
-<dt><?php echo $this->__('Price') ?></dt>
-<dd><div id="mageinnSliderWrap"><div id="mageinnSlider"></div><div id="msFrom"></div><div id="msTo"></div></div>
-<script type="text/javascript">
-//<![CDATA[
-var pricePattern  = '<?php echo $this->getCurrencyPattern(); ?>';
-var slider = document.getElementById('mageinnSlider');
-var priceLabels = [
-        document.getElementById('msFrom'),
-        document.getElementById('msTo')
-];
-if (typeof slider.noUiSlider === 'undefined' || !slider.noUiSlider.get('slider')) {
-    noUiSlider.create(slider, {
-        start: [<?php echo $this->getCurrFromPrice(); ?>, <?php echo $this->getCurrToPrice(); ?>],
-        <?php if($this->getStep()): ?>
-        step: <?php echo $this->getStep(); ?>,
-        <?php endif; ?>
-        connect: true,
-        range: {
-            'min': <?php echo $this->getFromPrice(); ?>,
-            'max': <?php echo $this->getToPrice(); ?>
-        },
-        format: wNumb(<?php echo $this->getFormat(); ?>)
-    });
-}
-var format = wNumb(<?php echo $this->getFormat(); ?>);
-slider.noUiSlider.on('update', function( values, handle ) {
-    priceLabels[handle].innerHTML = pricePattern.replace('123',values[handle]);
-});
-slider.noUiSlider.on('set', function( values, handle ){
-    msAjax(prepareMsUrl(format.from(values[0]),format.from(values[1])), true);
-});
-//]]>
-</script></dd>
-<?php endif; ?>
+    <!-- mageinnSlider -->
+    <?php if($this->getFromPrice() != $this->getToPrice()): ?>
+        <dt><?php echo $this->__('Price') ?></dt>
+        <dd><div id="mageinnSliderWrap"><div id="mageinnSlider"></div><div id="msFrom"></div><div id="msTo"></div></div>
+            <script type="text/javascript">
+               //<![CDATA[
+               var pricePattern  = '<?php echo $this->getCurrencyPattern(); ?>';
+               var slider = document.getElementById('mageinnSlider');
+               var priceLabels = [
+                  document.getElementById('msFrom'),
+                  document.getElementById('msTo')
+               ];
+               if (typeof slider.noUiSlider === 'undefined' || !slider.noUiSlider.get('slider')) {
+                  noUiSlider.create(slider, {
+                     start: [<?php echo $this->getCurrFromPrice(); ?>, <?php echo $this->getCurrToPrice(); ?>],
+                      <?php if($this->getStep()): ?>
+                     step: <?php echo $this->getStep(); ?>,
+                      <?php endif; ?>
+                     connect: true,
+                     range: {
+                        'min': <?php echo $this->getFromPrice(); ?>,
+                        'max': <?php echo $this->getToPrice(); ?>
+                     },
+                     format: wNumb(<?php echo $this->getFormat(); ?>)
+                  });
+               }
+               var format = wNumb(<?php echo $this->getFormat(); ?>);
+               slider.noUiSlider.on('update', function( values, handle ) {
+                  priceLabels[handle].innerHTML = pricePattern.replace('123',values[handle]);
+               });
+               slider.noUiSlider.on('set', function( values, handle ){
+                   <?php if ($helper->isAjaxLayered()): ?>
+                  msAjax(prepareMsUrl(format.from(values[0]),format.from(values[1])), true);
+                   <?php else: ?>
+                  window.location.href = prepareMsUrl(format.from(values[0]),format.from(values[1]));
+                   <?php endif; ?>
+               });
+               //]]>
+            </script></dd>
+    <?php endif; ?>
 <?php endif; ?>
