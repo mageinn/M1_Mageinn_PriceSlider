@@ -14,13 +14,13 @@
  *
  * @category    Mageinn
  * @package     Mageinn_PriceSlider
- * @copyright   Copyright (c) 2016 Mageinn. (http://mageinn.com/)
+ * @copyright   Copyright (c) 2019 Mageinn. (http://mageinn.com/)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * This class is required for common functions getting used around this module.
- * 
+ *
  * @author      Mageinn
  * @package     Mageinn_PriceSlider
  * @category    Mageinn
@@ -36,85 +36,85 @@ class Mageinn_PriceSlider_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_MAGEINN_AJAX_RWDCALLBACK = 'mageinn_priceslider/general/rwdcallback';
     const XML_PATH_MAGEINN_SLIDER_STEP      = 'mageinn_priceslider/general/step';
     const XML_PATH_MAGEINN_SLIDER_WNUMB     = 'mageinn_priceslider/general/wnumb';
-    
+
     /**
      * Checks if the module is enabled
-     * 
-     * @return bool 
+     *
+     * @return bool
      */
-    public function isEnabled() 
+    public function isEnabled()
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_MAGEINN_SLIDER_ENABLED);
     }
-    
+
     /**
      * Checks if multiple select mode is enabled
-     * 
-     * @return bool 
+     *
+     * @return bool
      */
-    public function isMultiselect() 
+    public function isMultiselect()
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_MAGEINN_AJAX_MULTI);
     }
-    
+
     /**
      * Checks if active filters should be hidden
-     * 
-     * @return bool 
+     *
+     * @return bool
      */
-    public function isHideActive() 
+    public function isHideActive()
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_MAGEINN_AJAX_HIDEACTIVE);
     }
-    
+
     /**
      * Checks if AJAX is enabled for Layered Navigation
-     * 
-     * @return bool 
+     *
+     * @return bool
      */
-    public function isAjaxLayered() 
+    public function isAjaxLayered()
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_MAGEINN_AJAX_LAYERED);
     }
-    
+
     /**
      * Checks if AJAX is enabled for toolbar
-     * 
-     * @return bool 
+     *
+     * @return bool
      */
-    public function isAjaxToolbar() 
+    public function isAjaxToolbar()
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_MAGEINN_AJAX_TOOLBAR);
     }
-    
+
     /**
      * Get AJAX callback
-     * 
-     * @return bool 
+     *
+     * @return bool
      */
-    public function getCallback() 
+    public function getCallback()
     {
         return Mage::getStoreConfig(self::XML_PATH_MAGEINN_AJAX_CALLBACK);
     }
-    
+
     /**
-     * Checks if RWD callback is enabled 
-     * 
-     * @return bool 
+     * Checks if RWD callback is enabled
+     *
+     * @return bool
      */
-    public function isRwdCallback() 
+    public function isRwdCallback()
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_MAGEINN_AJAX_RWDCALLBACK);
     }
-    
+
     /**
      * Get Slider Step
-     * 
-     * @return int 
+     *
+     * @return int
      */
-    public function getStep() 
+    public function getStep()
     {
-        return (int) Mage::getStoreConfig(self::XML_PATH_MAGEINN_SLIDER_STEP);
+        return (int)Mage::getStoreConfig(self::XML_PATH_MAGEINN_SLIDER_STEP);
     }
 
     /**
@@ -126,7 +126,7 @@ class Mageinn_PriceSlider_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return "{" . Mage::getStoreConfig(self::XML_PATH_MAGEINN_SLIDER_WNUMB) . "}";
     }
-    
+
     /**
      * Get current url
      *

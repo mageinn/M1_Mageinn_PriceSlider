@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Mageinn_PriceSlider extension
  *
@@ -14,7 +14,7 @@
  *
  * @category    Mageinn
  * @package     Mageinn_PriceSlider
- * @copyright   Copyright (c) 2016 Mageinn. (http://mageinn.com/)
+ * @copyright   Copyright (c) 2019 Mageinn. (http://mageinn.com/)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,69 +34,71 @@ class Mageinn_PriceSlider_Block_Price extends Mage_Core_Block_Template
     protected $_isEnabled;
     protected $_layer;
 
-    
+    /**
+     * Mageinn_PriceSlider_Block_Price constructor.
+     */
     public function __construct()
     {
         $this->init();
         $this->setPrices();
         parent::__construct();
     }
-    
+
     /**
      * Set layer depending on the page
-     * 
+     *
      * @return  Mageinn_PriceSlider_Block_Price
      */
     public function init()
     {
+        /** @var Mage_Eav_Model_Entity_Attribute_Abstract $attribute */
         $attribute = Mage::getModel('eav/entity_attribute')
-                ->loadByCode('catalog_product', 'price');
+            ->loadByCode('catalog_product', 'price');
         $_category = Mage::registry('current_category');
-        if($_category) {
+        if ($_category) {
             $this->_isEnabled = $attribute->getIsFilterable();
-            if(!$this->_isEnabled){
+            if (!$this->_isEnabled) {
                 return $this;
             }
             $this->_layer = Mage::getSingleton('catalog/layer');
         } else {
-            $this->_isEnabled =  $attribute->getIsFilterableInSearch();
-            if(!$this->_isEnabled){
+            $this->_isEnabled = $attribute->getIsFilterableInSearch();
+            if (!$this->_isEnabled) {
                 return $this;
             }
 
             $this->_layer = Mage::getSingleton('catalogsearch/layer');
         }
-             
+
         return $this;
     }
-    
-    /*
-    * Set prices
-     * 
-    * @return  Mageinn_PriceSlider_Block_Price
-    */
+
+    /**
+     * Set prices
+     *
+     * @return Mageinn_PriceSlider_Block_Price
+     */
     public function setPrices()
     {
         // Get selected prices
         $priceRange = $this->getRequest()->getParam('price');
-        
-        if($priceRange) {
+
+        if ($priceRange) {
             $filterParams = explode('-', $this->getRequest()->getParam('price'));
-            
-            $this->_currFromPrice   = $filterParams[0];
-            $this->_currToPrice     = $filterParams[1];
+
+            $this->_currFromPrice = $filterParams[0];
+            $this->_currToPrice = $filterParams[1];
         }
-        
+
         return $this;
     }
 
-    /*
-    * 
-    * @return int
-    */
+    /**
+     * @return number
+     */
     public function getCurrFromPrice()
     {
-        if($this->_currFromPrice > 0) {
+        if ($this->_currFromPrice > 0) {
             $min = $this->_currFromPrice;
         } else {
             $min = $this->getFromPrice();
@@ -104,48 +106,46 @@ class Mageinn_PriceSlider_Block_Price extends Mage_Core_Block_Template
         return $min;
     }
 
-    /*
-    * 
-    * @return int
-    */
-    public function getCurrToPrice()
-    {
-        if($this->_currToPrice > 0) {
-            $max = $this->_currToPrice;
-        } else{
-            $max = $this->getToPrice();
-        }
-        return $max;
-    }
-    
     /**
      * Get the actual From price
      * @return number
      */
     public function getFromPrice()
     {
-        if($this->_layer->getMinPrice()) {
+        if ($this->_layer->getMinPrice()) {
             return floor($this->_layer->getMinPrice());
         } else {
             return floor($this->_layer->getProductCollection()->getMinPrice());
         }
     }
-    
+
+    /**
+     * @return number
+     */
+    public function getCurrToPrice()
+    {
+        if ($this->_currToPrice > 0) {
+            $max = $this->_currToPrice;
+        } else {
+            $max = $this->getToPrice();
+        }
+        return $max;
+    }
+
     /**
      * Get the actual To price
      * @return number
      */
     public function getToPrice()
     {
-        if($this->_layer->getMaxPrice()) {
+        if ($this->_layer->getMaxPrice()) {
             return floor($this->_layer->getMaxPrice());
         } else {
             return floor($this->_layer->getProductCollection()->getMaxPrice());
         }
     }
-    
+
     /**
-     * 
      * @return string
      */
     public function getCurrencyPattern()
@@ -153,9 +153,8 @@ class Mageinn_PriceSlider_Block_Price extends Mage_Core_Block_Template
         $full = explode(".", Mage::app()->getStore()->formatPrice(123, false));
         return $full[0];
     }
-    
+
     /**
-     *
      * @return int
      */
     public function getStep()
@@ -164,18 +163,17 @@ class Mageinn_PriceSlider_Block_Price extends Mage_Core_Block_Template
     }
 
     /**
-     *
      * @return string
      */
     public function getFormat()
     {
         return Mage::helper('mageinn_priceslider')->getWnumbFormat();
     }
-    
+
     /**
      * Check if price attribute is filterable
-     * 
-     * @return type
+     *
+     * @return int
      */
     public function getIsEnabled()
     {

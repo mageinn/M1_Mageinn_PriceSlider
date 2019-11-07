@@ -14,24 +14,25 @@
  *
  * @category    Mageinn
  * @package     Mageinn_PriceSlider
- * @copyright   Copyright (c) 2016 Mageinn. (http://mageinn.com/)
+ * @copyright   Copyright (c) 2019 Mageinn. (http://mageinn.com/)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Category Controller
- * 
+ *
  * @author      Mageinn
  * @package     Mageinn_PriceSlider
  * @category    Mageinn
  */
 require_once('app/code/core/Mage/Catalog/controllers/CategoryController.php');
-class Mageinn_PriceSlider_Catalog_CategoryController 
-    extends Mage_Catalog_CategoryController {
 
-    public function viewAction() 
+class Mageinn_PriceSlider_Catalog_CategoryController
+    extends Mage_Catalog_CategoryController
+{
+    public function viewAction()
     {
-        if ($this->getRequest()->isXmlHttpRequest() && Mage::helper('mageinn_priceslider')->isEnabled()) { 
+        if ($this->getRequest()->isXmlHttpRequest() && Mage::helper('mageinn_priceslider')->isEnabled()) {
             $response = array();
 
             if ($category = $this->_initCatagory()) {

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Mageinn_PriceSlider extension
  *
@@ -14,7 +14,7 @@
  *
  * @category    Mageinn
  * @package     Mageinn_PriceSlider
- * @copyright   Copyright (c) 2016 Mageinn. (http://mageinn.com/)
+ * @copyright   Copyright (c) 2019 Mageinn. (http://mageinn.com/)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,14 +28,14 @@
 class Mageinn_PriceSlider_Block_Ajax extends Mage_Core_Block_Template
 {
     /**
-     * 
+     *
      * @return string
      */
     public function getCallbackJs()
     {
         return Mage::helper('mageinn_priceslider')->getCallback('mageinn_priceslider');
     }
-    
+
     /**
      * Get current url
      *

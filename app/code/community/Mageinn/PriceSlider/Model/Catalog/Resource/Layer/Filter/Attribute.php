@@ -14,19 +14,18 @@
  *
  * @category    Mageinn
  * @package     Mageinn_PriceSlider
- * @copyright   Copyright (c) 2016 Mageinn. (http://mageinn.com/)
+ * @copyright   Copyright (c) 2019 Mageinn. (http://mageinn.com/)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Mageinn_PriceSlider_Model_Catalog_Resource_Layer_Filter_Attribute
- * 
+ *
  * @author      Mageinn
  * @package     Mageinn_PriceSlider
  * @category    Mageinn
  */
 class Mageinn_PriceSlider_Model_Catalog_Resource_Layer_Filter_Attribute extends Mage_Catalog_Model_Resource_Layer_Filter_Attribute
-//class Mageinn_PriceSlider_Model_Catalog_Resource_Layer_Filter_Attribute extends Simtech_Searchanise_Model_Resource_Layer_Filter_Attribute
 {
     /**
      * Apply attribute filter to product collection
@@ -38,19 +37,19 @@ class Mageinn_PriceSlider_Model_Catalog_Resource_Layer_Filter_Attribute extends 
     public function applyFilterToCollection($filter, $value)
     {
         $collection = $filter->getLayer()->getProductCollection();
-        $attribute  = $filter->getAttributeModel();
+        $attribute = $filter->getAttributeModel();
         $connection = $this->_getReadAdapter();
         $tableAlias = $attribute->getAttributeCode() . '_idx';
-        
+
         $values = explode(",", $value);
         $cleaned = array();
-        foreach($values as $v) {
-            $v = (int) $v;
-            if($v) {
+        foreach ($values as $v) {
+            $v = (int)$v;
+            if ($v) {
                 $cleaned[] = $v;
             }
         }
-        
+
         $conditions = array(
             "{$tableAlias}.entity_id = e.entity_id",
             $connection->quoteInto("{$tableAlias}.attribute_id = ?", $attribute->getAttributeId()),

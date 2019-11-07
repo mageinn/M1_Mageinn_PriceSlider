@@ -14,13 +14,13 @@
  *
  * @category    Mageinn
  * @package     Mageinn_PriceSlider
- * @copyright   Copyright (c) 2016 Mageinn. (http://mageinn.com/)
+ * @copyright   Copyright (c) 2019 Mageinn. (http://mageinn.com/)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Mageinn_PriceSlider_Model_CatalogSearch_Layer_Filter_Attribute
- * 
+ *
  * @author      Mageinn
  * @package     Mageinn_PriceSlider
  * @category    Mageinn
@@ -30,8 +30,8 @@ class Mageinn_PriceSlider_Model_CatalogSearch_Layer_Filter_Attribute extends Mag
     /**
      * Check whether specified attribute can be used in LN
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute  $attribute
-     * @return bool
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @return Mage_Catalog_Model_Resource_Eav_Attribute
      */
     protected function _getIsFilterableAttribute($attribute)
     {
