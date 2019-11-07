@@ -14,13 +14,13 @@
  *
  * @category    Mageinn
  * @package     Mageinn_PriceSlider
- * @copyright   Copyright (c) 2016 Mageinn. (http://mageinn.com/)
+ * @copyright   Copyright (c) 2019 Mageinn. (http://mageinn.com/)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Mageinn_PriceSlider_Model_Catalog_Layer_Filter_Price
- * 
+ *
  * @author      Mageinn
  * @package     Mageinn_PriceSlider
  * @category    Mageinn
@@ -37,10 +37,10 @@ class Mageinn_PriceSlider_Model_Catalog_Layer_Filter_Price extends Mage_Catalog_
      */
     public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
     {
-        if(!Mage::helper('mageinn_priceslider')->isEnabled()) {
+        if (!Mage::helper('mageinn_priceslider')->isEnabled()) {
             return parent::apply($request, $filterBlock);
         }
-        
+
         /**
          * Filter must be string: $fromPrice-$toPrice
          */

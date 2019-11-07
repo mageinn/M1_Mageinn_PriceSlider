@@ -14,7 +14,7 @@
  *
  * @category    Mageinn
  * @package     Mageinn_PriceSlider
- * @copyright   Copyright (c) 2016 Mageinn. (http://mageinn.com/)
+ * @copyright   Copyright (c) 2019 Mageinn. (http://mageinn.com/)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,8 +27,11 @@
  */
 class Mageinn_PriceSlider_Model_Catalog_Layer_Filter_Category extends Mage_Catalog_Model_Layer_Filter_Category
 {
+    /**
+     * @var null
+     */
     protected $_activeItems = null;
-    
+
     /**
      * Apply category filter to layer
      *
@@ -38,18 +41,19 @@ class Mageinn_PriceSlider_Model_Catalog_Layer_Filter_Category extends Mage_Catal
      */
     public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
     {
-        if(!Mage::helper('mageinn_priceslider')->isMultiselect()) {
+        if (!Mage::helper('mageinn_priceslider')->isMultiselect()) {
             return parent::apply($request, $filterBlock);
         }
-        
+
         $filter = $request->getParam($this->getRequestVar());
         if (!$filter) {
             return $this;
         }
+
         $categoryIds = explode(",", $filter);
-        foreach($categoryIds as $cId) {
-            if(!empty($cId)) {
-                $this->_categoryId[] = (int) $cId;
+        foreach ($categoryIds as $cId) {
+            if (!empty($cId)) {
+                $this->_categoryId[] = (int)$cId;
             }
         }
 
@@ -57,11 +61,11 @@ class Mageinn_PriceSlider_Model_Catalog_Layer_Filter_Category extends Mage_Catal
         $this->_activeItems = $this->_getActiveItemsData($request);
 
         $this->getLayer()->getProductCollection()
-                    ->addCategoryArrayFilter($this->_categoryId);
-        
-        if(!Mage::helper('mageinn_priceslider')->isHideActive()) {
-            foreach($this->_categoryId as $catId) {
-                $catId = (int) $catId;
+            ->addCategoryArrayFilter($this->_categoryId);
+
+        if (!Mage::helper('mageinn_priceslider')->isHideActive()) {
+            foreach ($this->_categoryId as $catId) {
+                $catId = (int)$catId;
                 $this->_appliedCategory = Mage::getModel('catalog/category')
                     ->setStoreId(Mage::app()->getStore()->getId())
                     ->load($catId);
@@ -76,58 +80,6 @@ class Mageinn_PriceSlider_Model_Catalog_Layer_Filter_Category extends Mage_Catal
 
         return $this;
     }
-    
-    /**
-     * Get fiter items count
-     *
-     * @return int
-     */
-    public function getItemsCount() 
-    {
-        if(!Mage::helper('mageinn_priceslider')->isMultiselect()) {
-            return parent::getItemsCount();
-        }
-        
-        if(!is_null($this->_activeItems)) {
-            return count($this->_activeItems);
-        } else {
-
-            return count($this->getItems());
-        }
-    }
-    
-    /**
-     * Get all filter items
-     *
-     * @return array
-     */
-    public function getItems()
-    {
-        if(!Mage::helper('mageinn_priceslider')->isMultiselect()) {
-            return parent::getItems();
-        }
-        
-        $items = array();
-        if (!is_null($this->_activeItems)) {
-            $items = $this->_activeItems;
-        } else {
-            if (is_null($this->_items)) {
-                $this->_initItems();
-            }
-            $items = $this->_items;
-        }
-        
-        $request = Mage::app()->getRequest();
-        
-        foreach($items as $item) {
-            $item->setMultiFlag(1);
-            $item->setOnUrl($this->_getOnUrl($request, $item->getValue()));
-            $item->setOffUrl($this->_getOffUrl($request, $item->getValue()));
-            $item->setChecked($this->_getCheckedState($request, $item->getValue()));
-        }
-        
-        return $items;
-    }
 
     /**
      * Get selected category object
@@ -136,14 +88,13 @@ class Mageinn_PriceSlider_Model_Catalog_Layer_Filter_Category extends Mage_Catal
      */
     public function getCategory()
     {
-        if(!Mage::helper('mageinn_priceslider')->isMultiselect()) {
+        if (!Mage::helper('mageinn_priceslider')->isMultiselect()) {
             return parent::getCategory();
         }
-        
+
         return $this->getLayer()->getCurrentCategory();
     }
-    
-    
+
     /**
      * Get data array for building attribute filter items
      *
@@ -151,19 +102,19 @@ class Mageinn_PriceSlider_Model_Catalog_Layer_Filter_Category extends Mage_Catal
      */
     protected function _getActiveItemsData()
     {
-        $key = $this->getLayer()->getStateKey().'_SUBCATEGORIES' . '_ACTIVE';
+        $key = $this->getLayer()->getStateKey() . '_SUBCATEGORIES' . '_ACTIVE';
         $data = $this->getLayer()->getAggregator()->getCacheData($key);
 
         if ($data === null) {
             $data = array();
-            
-            $category   = $this->getCategory();
-                
-            /** @var $categoty Mage_Catalog_Model_Categeory */
+
+            $category = $this->getCategory();
+
+            /** @var $category Mage_Catalog_Model_Category */
             $categories = $category->getChildrenCategories();
-             
+
             $this->getLayer()->getProductCollection()
-                    ->addCountToCategories($categories);
+                ->addCountToCategories($categories);
 
             foreach ($categories as $category) {
                 if ($category->getIsActive() && $category->getProductCount()) {
@@ -176,13 +127,67 @@ class Mageinn_PriceSlider_Model_Catalog_Layer_Filter_Category extends Mage_Catal
                     $data[] = $item;
                 }
             }
-            
+
             $tags = $this->getLayer()->getStateTags();
             $this->getLayer()->getAggregator()->saveCacheData($data, $key, $tags);
         }
+
         return $data;
     }
-    
+
+    /**
+     * Get fiter items count
+     *
+     * @return int
+     */
+    public function getItemsCount()
+    {
+        if (!Mage::helper('mageinn_priceslider')->isMultiselect()) {
+            return parent::getItemsCount();
+        }
+
+        if (!is_null($this->_activeItems)) {
+            return count($this->_activeItems);
+        } else {
+
+            return count($this->getItems());
+        }
+    }
+
+    /**
+     * Get all filter items
+     *
+     * @return array
+     */
+    public function getItems()
+    {
+        if (!Mage::helper('mageinn_priceslider')->isMultiselect()) {
+            return parent::getItems();
+        }
+
+        $items = array();
+        if (!is_null($this->_activeItems)) {
+            $items = $this->_activeItems;
+        } else {
+            if (is_null($this->_items)) {
+                $this->_initItems();
+            }
+
+            $items = $this->_items;
+        }
+
+        $request = Mage::app()->getRequest();
+
+        foreach ($items as $item) {
+            $item->setMultiFlag(1);
+            $item->setOnUrl($this->_getOnUrl($request, $item->getValue()));
+            $item->setOffUrl($this->_getOffUrl($request, $item->getValue()));
+            $item->setChecked($this->_getCheckedState($request, $item->getValue()));
+        }
+
+        return $items;
+    }
+
     /**
      * Get filter item ON url
      *
@@ -196,14 +201,14 @@ class Mageinn_PriceSlider_Model_Catalog_Layer_Filter_Category extends Mage_Catal
         $optionIds = explode(",", $filter);
         $optionIds[] = $value;
         $result = implode(",", array_unique($optionIds));
-        
+
         $query = array(
-            $this->getRequestVar()=>$result,
+            $this->getRequestVar()                                       => $result,
             Mage::getBlockSingleton('page/html_pager')->getPageVarName() => null // exclude current page from urls
         );
-        return Mage::getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true, '_query'=>$query));
+        return Mage::getUrl('*/*/*', array('_current' => true, '_use_rewrite' => true, '_query' => $query));
     }
-    
+
     /**
      * Get filter item OFF url
      *
@@ -213,27 +218,28 @@ class Mageinn_PriceSlider_Model_Catalog_Layer_Filter_Category extends Mage_Catal
      */
     protected function _getOffUrl($request, $value)
     {
-        $filter = $request->getParam($this->_requestVar); 
+        $filter = $request->getParam($this->_requestVar);
         $optionIds = explode(",", $filter);
-        if(($key = array_search($value, $optionIds)) !== false) {
+        if (($key = array_search($value, $optionIds)) !== false) {
             unset($optionIds[$key]);
         }
+
         $result = implode(",", array_unique($optionIds));
         $query = array(
             Mage::getBlockSingleton('page/html_pager')->getPageVarName() => null // exclude current page from urls
         );
-        
-        if(!empty($result)) {
+
+        if (!empty($result)) {
             $query[$this->getRequestVar()] = $result;
         } else {
             $query[$this->getRequestVar()] = null;
         }
-        
-        return Mage::getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true, '_query'=>$query));
+
+        return Mage::getUrl('*/*/*', array('_current' => true, '_use_rewrite' => true, '_query' => $query));
     }
-    
+
     /**
-     * 
+     *
      * @param Zend_Controller_Request_Abstract $request
      * @param  string $value
      * @return string
@@ -242,9 +248,10 @@ class Mageinn_PriceSlider_Model_Catalog_Layer_Filter_Category extends Mage_Catal
     {
         $filter = $request->getParam($this->_requestVar);
         $optionIds = explode(",", $filter);
-        if(($key = array_search($value, $optionIds)) !== false) {
+        if (($key = array_search($value, $optionIds)) !== false) {
             return true;
         }
+
         return false;
     }
 }

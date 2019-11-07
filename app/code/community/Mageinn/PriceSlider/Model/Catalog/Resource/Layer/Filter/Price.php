@@ -14,19 +14,18 @@
  *
  * @category    Mageinn
  * @package     Mageinn_PriceSlider
- * @copyright   Copyright (c) 2016 Mageinn. (http://mageinn.com/)
+ * @copyright   Copyright (c) 2019 Mageinn. (http://mageinn.com/)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Mageinn_PriceSlider_Model_Catalog_Resource_Layer_Filter_Price
- * 
+ *
  * @author      Mageinn
  * @package     Mageinn_PriceSlider
  * @category    Mageinn
  */
 class Mageinn_PriceSlider_Model_Catalog_Resource_Layer_Filter_Price extends Mage_Catalog_Model_Resource_Layer_Filter_Price
-//class Mageinn_PriceSlider_Model_Catalog_Resource_Layer_Filter_Price extends Simtech_Searchanise_Model_Resource_Layer_Filter_Price
 {
     /**
      * Apply price range filter to product collection
@@ -36,10 +35,10 @@ class Mageinn_PriceSlider_Model_Catalog_Resource_Layer_Filter_Price extends Mage
      */
     public function applyPriceRange($filter)
     {
-        if(!Mage::helper('mageinn_priceslider')->isEnabled()) {
+        if (!Mage::helper('mageinn_priceslider')->isEnabled()) {
             return parent::applyPriceRange($filter);
         }
-        
+
         $interval = $filter->getInterval();
         if (!$interval) {
             return $this;
@@ -64,13 +63,14 @@ class Mageinn_PriceSlider_Model_Catalog_Resource_Layer_Filter_Price extends Mage
         if ($from !== '') {
             $select->where($priceExpr . ' >= ' . $this->_getComparingValue($from, $filter));
         }
+
         if ($to !== '') {
             $select->where($priceExpr . ' < ' . $this->_getComparingValue($to, $filter));
         }
 
         return $this;
     }
-    
+
     /**
      * Get comparing value sql part
      *
@@ -81,10 +81,10 @@ class Mageinn_PriceSlider_Model_Catalog_Resource_Layer_Filter_Price extends Mage
      */
     protected function _getComparingValue($price, $filter, $decrease = true)
     {
-        if(!Mage::helper('mageinn_priceslider')->isEnabled()) {
+        if (!Mage::helper('mageinn_priceslider')->isEnabled()) {
             return parent::_getComparingValue($price, $filter, $decrease);
         }
-        
+
         $currencyRate = $filter->getLayer()->getProductCollection()->getCurrencyRate();
         $result = $price / $currencyRate;
         return sprintf('%F', $result);

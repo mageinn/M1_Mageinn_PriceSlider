@@ -14,26 +14,27 @@
  *
  * @category    Mageinn
  * @package     Mageinn_PriceSlider
- * @copyright   Copyright (c) 2016 Mageinn. (http://mageinn.com/)
+ * @copyright   Copyright (c) 2019 Mageinn. (http://mageinn.com/)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Search Controller
- * 
+ *
  * @author      Mageinn
  * @package     Mageinn_PriceSlider
  * @category    Mageinn
  */
 require_once('app/code/core/Mage/CatalogSearch/controllers/ResultController.php');
-class Mageinn_PriceSlider_CatalogSearch_ResultController 
-    extends Mage_CatalogSearch_ResultController {
 
-    public function indexAction() 
+class Mageinn_PriceSlider_CatalogSearch_ResultController
+    extends Mage_CatalogSearch_ResultController
+{
+    public function indexAction()
     {
         if ($this->getRequest()->isXmlHttpRequest() && Mage::helper('mageinn_priceslider')->isEnabled()) {
             $response = array();
-            
+
             $query = Mage::helper('catalogsearch')->getQuery();
             /* @var $query Mage_CatalogSearch_Model_Query */
 
@@ -44,21 +45,18 @@ class Mageinn_PriceSlider_CatalogSearch_ResultController
                     $query->setId(0)
                         ->setIsActive(1)
                         ->setIsProcessed(1);
-                }
-                else {
+                } else {
                     if ($query->getId()) {
-                        $query->setPopularity($query->getPopularity()+1);
-                    }
-                    else {
+                        $query->setPopularity($query->getPopularity() + 1);
+                    } else {
                         $query->setPopularity(1);
                     }
 
-                    if ($query->getRedirect()){
+                    if ($query->getRedirect()) {
                         $query->save();
                         $this->getResponse()->setRedirect($query->getRedirect());
                         return;
-                    }
-                    else {
+                    } else {
                         $query->prepare();
                     }
                 }
@@ -78,15 +76,14 @@ class Mageinn_PriceSlider_CatalogSearch_ResultController
                 $response['viewpanel'] = $viewpanel;
                 $response['productlist'] = $productlist;
                 $response['urlpattern'] = Mage::helper('mageinn_priceslider')->getCurrentUrl();
-            }
-            else {
+            } else {
                 $response['status'] = 0;
             }
-            
+
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($response));
             return;
         }
-        
+
         parent::indexAction();
     }
 }
