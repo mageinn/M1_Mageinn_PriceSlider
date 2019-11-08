@@ -106,6 +106,7 @@ trait Mageinn_PriceSlider_Model_Collection_CollectionTrait
                 $joinCond,
                 array('cat_index_position' => 'position')
             );
+            $this->getSelect()->group('cat_index.product_id');
         }
 
         $this->_productLimitationJoinStore();
