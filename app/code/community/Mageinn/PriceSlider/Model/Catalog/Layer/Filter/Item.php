@@ -38,6 +38,23 @@ class Mageinn_PriceSlider_Model_Catalog_Layer_Filter_Item extends Mage_Catalog_M
         if ($offUrl) {
             return $offUrl;
         }
-        return parent::getRemoveUrl();
+
+        $query = array(
+            $this->getFilter()->getRequestVar()=>$this->_getValueExcludingCurrent(),
+            Mage::getBlockSingleton('page/html_pager')->getPageVarName() => null // exclude current page from urls
+        );
+
+        return Mage::getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true, '_query'=>$query));
+    }
+
+    /**
+     * @return string
+     */
+    protected function _getValueExcludingCurrent()
+    {
+        $value = $this->getValue();
+        $categoryIds = explode(",", $value);
+        $categoryIds = array_diff($categoryIds, [$this->getEntityId()]);
+        return implode(",", $categoryIds);
     }
 }

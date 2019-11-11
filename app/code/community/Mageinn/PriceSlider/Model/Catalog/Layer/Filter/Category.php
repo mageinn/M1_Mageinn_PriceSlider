@@ -72,13 +72,31 @@ class Mageinn_PriceSlider_Model_Catalog_Layer_Filter_Category extends Mage_Catal
 
                 if ($this->_isValidCategory($this->_appliedCategory)) {
                     $this->getLayer()->getState()->addFilter(
-                        $this->_createItem($this->_appliedCategory->getName(), $filter)
+                        $this->_createItem($this->_appliedCategory->getName(), $filter, 0, $this->_appliedCategory->getEntityId())
                     );
                 }
             }
         }
 
         return $this;
+    }
+
+    /**
+     * Create filter item object
+     *
+     * @param   string $label
+     * @param   mixed $value
+     * @param   int $count
+     * @return  Mage_Catalog_Model_Layer_Filter_Item
+     */
+    protected function _createItem($label, $value, $count=0, $entityId)
+    {
+        return Mage::getModel('catalog/layer_filter_item')
+            ->setFilter($this)
+            ->setLabel($label)
+            ->setValue($value)
+            ->setEntityId($entityId)
+            ->setCount($count);
     }
 
     /**
