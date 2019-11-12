@@ -85,6 +85,20 @@ class Mageinn_PriceSlider_Model_Catalog_Resource_Layer_Filter_Attribute extends 
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 
+        if (isset($_REQUEST['price'])) {
+            $interval = explode('-', $_REQUEST['price']);
+            list($from, $to) = $interval;
+            $wheres = $select->getPart('where');
+
+            if (!empty($from) && !$this->_searchSubstring('min_price >=', $wheres)) {
+                $select->where('price_index.min_price' . ' >= ' . $from);
+            }
+
+            if (!empty($to) && !$this->_searchSubstring('min_price <', $wheres)) {
+                $select->where('price_index.min_price' . ' < ' . $to);
+            }
+        }
+
         $connection = $this->_getReadAdapter();
         $attribute  = $filter->getAttributeModel();
         $tableAlias = sprintf('%s_idx', $attribute->getAttributeCode());
@@ -101,5 +115,20 @@ class Mageinn_PriceSlider_Model_Catalog_Resource_Layer_Filter_Attribute extends 
                 array('value', 'count' => new Zend_Db_Expr("COUNT(DISTINCT {$tableAlias}.entity_id)")))
             ->group(array("{$tableAlias}.value"));
         return $connection->fetchPairs($select);
+    }
+
+    /**
+     * @param $keyword
+     * @param $array
+     * @return bool|int|string
+     */
+    protected function _searchSubstring($keyword, $array){
+        foreach($array as $key => $arrayItem){
+            if( stristr( $arrayItem, $keyword ) ){
+                return $key;
+            }
+        }
+
+        return false;
     }
 }
